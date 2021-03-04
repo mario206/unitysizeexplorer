@@ -189,12 +189,27 @@
 
             // Go through the entire tree and remove nodes with a single child, collapsing their info
             // into their parent node.
+            SortBiggerFirst(roots);
+
             foreach (var root in roots)
             {
                 WorkspacePageViewModel.PruneTree(root);
             }
 
             return roots;
+        }
+
+        private static void SortBiggerFirst(List<FileItemViewModel> list)
+        {
+            list.Sort(delegate(FileItemViewModel a, FileItemViewModel b)
+            {
+                return b.Megabytes.CompareTo(a.Megabytes);
+            });
+
+            foreach (var child in list)
+            {
+                SortBiggerFirst(child.Children);
+            }
         }
 
         /// <summary>

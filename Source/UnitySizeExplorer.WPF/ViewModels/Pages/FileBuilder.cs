@@ -21,6 +21,7 @@ namespace SpottedZebra.UnitySizeExplorer.WPF.ViewModels.Pages
                 {
                     line = await reader.ReadLineAsync();
 
+                    line = line.Substring(26);
                     if (line.Trim() == Resource.LogStartWord)
                     {
                         // This is the line before the size breakdown
